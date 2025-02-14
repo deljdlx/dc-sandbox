@@ -1,0 +1,24 @@
+name: Deploy on push
+
+on:
+  push:
+    branches:
+      - dedibox
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Deploy via SSH
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: "jlb.ninja"
+        username: "jdlxt"
+        key: "${{ secrets.DEPLOY_KEY }}"
+        script: |
+          cd /var/www/html/jlb.ninja/sandbox/sandbox
+          git pull origin dedibox
