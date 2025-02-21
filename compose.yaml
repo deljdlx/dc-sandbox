@@ -17,8 +17,8 @@ services:
       web:
       mariadb:
 networks:
-  mariadb:
-    name: mariadb
+  web:
+    name: web
     external: true
   mariadb:
     name: mariadb
