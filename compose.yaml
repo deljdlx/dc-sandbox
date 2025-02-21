@@ -1,7 +1,7 @@
 services:
   sandbox:
     container_name: sandbox
-    image: tangramor/nginx-php8-fpm:php8.4.3_withoutNodejs
+    build: .
     restart: always
     env_file:
       - .env
