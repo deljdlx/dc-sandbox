@@ -10,6 +10,7 @@ jobs:
   deploy-sandbox:
     uses: deljdlx/github-tools/.github/workflows/deploy.yml@main
     with:
+      host_name: "sandbox.jlb.ninja"
       repo_name: "dc-sandbox"
       repo_owner: "deljdlx"
       deploy_folder: "/home/jdlxt/stack"
