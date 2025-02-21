@@ -12,6 +12,6 @@ jobs:
     with:
       repo_name: "dc-sandbox"
       repo_owner: "deljdlx"
-      deploy_folder: "~/stack"
+      deploy_folder: "/home/jdlxt/stack"
     secrets:
       ssh_key: ${{ secrets.DEPLOY_KEY }}
