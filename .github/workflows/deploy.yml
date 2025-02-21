@@ -27,7 +27,7 @@ jobs:
 
           # check if .env file exists
           if [ ! -f ".env" ]; then
-            echo DOMAIN=sandbox.hlb.ninja > .env
+            echo DOMAIN=sandbox.jlb.ninja > .env
           fi
 
           docker compose down
