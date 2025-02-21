@@ -1,12 +1,12 @@
 services:
   sandbox:
     container_name: sandbox
-    build: .
+    build: ./compose
     restart: always
     env_file:
       - .env
     volumes:
-      - "../src:/var/www/html"
+      - "./src:/var/www/html"
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=web"
