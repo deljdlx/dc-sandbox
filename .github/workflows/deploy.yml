@@ -24,6 +24,12 @@ jobs:
           fi
           cd dc_sandbox
           git pull
+
+          # check if .env file exists
+          if [ ! -f ".env" ]; then
+            echo DOMAIN=sandbox.hlb.ninja > .env
+          fi
+
           docker compose down
           docker compose up -d
 
