@@ -1,0 +1,25 @@
+services:
+  sandbox:
+    container_name: sandbox
+    image: tangramor/nginx-php8-fpm:php8.4.3_withoutNodejs
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - "./src:/var/www/html"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=web"
+      - "traefik.http.routers.sandbox.rule=Host(\"${DOMAIN}\")"
+      - "traefik.http.routers.sandbox.entrypoints=websecure"
+      - "traefik.http.routers.sandbox.tls.certresolver=myresolver"
+    networks:
+      web:
+      mariadb:
+networks:
+  mariadb:
+    name: mariadb
+    external: true
+  mariadb:
+    name: mariadb
+    external: true

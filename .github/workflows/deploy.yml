@@ -1,18 +1,15 @@
-name: Deploy on push
-
-on:
-  push:
-    branches:
-      - dedibox
+# name: Deploy on push
+# on:
+#   push:
+#     branches:
+#       - dedibox
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
-
     - name: Deploy via SSH
       uses: appleboy/ssh-action@v1.0.3
       with:
@@ -20,5 +17,30 @@ jobs:
         username: "jdlxt"
         key: "${{ secrets.DEPLOY_KEY }}"
         script: |
-          cd /var/www/html/jlb.ninja/sandbox/sandbox
-          git pull origin dedibox
+          set -e
+          cd ~/stack
+          # check if repository exists
+          if [ ! -d "dc_sandbox/.git" ]; then
+            git clone git@github.com:deljdlx/dc_sandbox.git
+          fi
+          cd dc_sandbox
+          git pull
+          docker-compose down
+          docker-compose up -d
+
+
+
+
+
+# name: Call Shared Workflow
+# on:
+#   push:
+#     branches:
+#       - main
+#   workflow_dispatch:
+
+# jobs:
+#   call-shared-workflow:
+#     uses: deljdlx/github-tools/.github/workflows/update-main-readme.yml@main
+#     secrets:
+#         personal_access_token: ${{ secrets.ACTION_TOKEN }}
