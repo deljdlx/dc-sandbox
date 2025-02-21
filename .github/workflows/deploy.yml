@@ -19,18 +19,18 @@ jobs:
           set -e
           cd ~/stack
           # check if repository exists
-          if [ ! -d "dc_sandbox/.git" ]; then
-            git clone git@github.com:deljdlx/dc_sandbox.git
+          if [ ! -d "dc-sandbox/.git" ]; then
+            git clone git@github.com:deljdlx/dc-sandbox.git
           fi
-          cd dc_sandbox
+          cd dc-sandbox
           git pull
 
           # check if .env file exists
           if [ ! -f ".env" ]; then
             echo DOMAIN=sandbox.jlb.ninja > .env
           fi
-
           docker compose down
+          docker compose build
           docker compose up -d
 
 
