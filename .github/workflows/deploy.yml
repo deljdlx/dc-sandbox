@@ -1,51 +1,17 @@
-name: Deploy on push
+name: Call Shared Deployment
+
 on:
   push:
     branches:
       - main
+  workflow_dispatch:
+
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-    - name: Deploy via SSH
-      uses: appleboy/ssh-action@v1.0.3
-      with:
-        host: "jlb.ninja"
-        username: "jdlxt"
-        key: "${{ secrets.DEPLOY_KEY }}"
-        script: |
-          set -e
-          cd ~/stack
-          # check if repository exists
-          if [ ! -d "dc-sandbox/.git" ]; then
-            git clone git@github.com:deljdlx/dc-sandbox.git
-          fi
-          cd dc-sandbox
-          git pull
-
-          # check if .env file exists
-          if [ ! -f ".env" ]; then
-            echo DOMAIN=sandbox.jlb.ninja > .env
-          fi
-          docker compose down
-          docker compose build
-          docker compose up -d
-
-
-
-
-
-# name: Call Shared Workflow
-# on:
-#   push:
-#     branches:
-#       - main
-#   workflow_dispatch:
-
-# jobs:
-#   call-shared-workflow:
-#     uses: deljdlx/github-tools/.github/workflows/update-main-readme.yml@main
-#     secrets:
-#         personal_access_token: ${{ secrets.ACTION_TOKEN }}
+  deploy-sandbox:
+    uses: deljdlx/github-tools/.github/workflows/deploy.yml@main
+    with:
+      repo_name: "dc-sandbox"
+      repo_owner: "deljdlx"
+      deploy_folder: "~/stack"
+    secrets:
+      ssh_key: ${{ secrets.DEPLOY_KEY }}
