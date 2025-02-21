@@ -24,8 +24,8 @@ jobs:
           fi
           cd dc_sandbox
           git pull
-          docker-compose down
-          docker-compose up -d
+          docker compose down
+          docker compose up -d
 
 
 
